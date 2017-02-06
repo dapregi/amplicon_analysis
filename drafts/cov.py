@@ -55,6 +55,9 @@ def _setup_argparse():
     parser.add_argument('-t', '--cov_threshold', dest='cov_threshold',
                         help='Coverage threshold', default=_DEF_COV_THRESHOLD,
                         type=int)
+    parser.add_argument('-b', '--one_based', dest='one_based',
+                        action='store_true',
+                        help='Region coordinates are 1-based')
 
     args = parser.parse_args()
     return args
@@ -400,7 +403,8 @@ def main():
     for i, sample in enumerate(samples):
         subselect = sample_data_df[desired_columns][(
             sample_data_df.sample_name == sample)]
-        subselect['amplicon_start'] -= 1  # From 1-based to 0-based coordinates
+        if options.one_based:
+            subselect['amplicon_start'] -= 1  # From 1-based to 0-based coords
 
         # Checking if there are regions associated to sample
         if subselect.empty:
