@@ -398,6 +398,7 @@ def main():
     # Creating a BED file for each desired sample
     log.info('Creating BED files...')
     sample_data_df = pd.read_csv(options.sample_data_fpath, sep='\t', header=0)
+    sample_data_df.sample_name = sample_data_df.sample_name.astype(str)
     desired_columns = ['chromosome', 'amplicon_start', 'amplicon_end',
                        'amplicon_name']
     for i, sample in enumerate(samples):
