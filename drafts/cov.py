@@ -194,6 +194,9 @@ def cov_plot(df, out_folder, cov_threshold=None, feats=None, samps=None):
                             point = sample_data.iloc[[i]]['base'].values[0]
                             intersections.append(point)
 
+                    # Removing duplicated points
+                    intersections = list(set(intersections))
+                    
                     if intersections:
                         ax2 = ax1.twiny()
                         ax2.set_xlim(ax1.get_xlim())
